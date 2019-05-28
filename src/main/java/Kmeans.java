@@ -6,12 +6,14 @@ import org.apache.spark.mllib.clustering.KMeans;
 import org.apache.spark.mllib.clustering.KMeansModel;
 import org.apache.spark.mllib.linalg.Vector;
 import org.apache.spark.mllib.linalg.Vectors;
+import java.io.Serializable;
 
-public class kmeans {
-    public static void main(String[] args) {
+public class Kmeans implements Serializable {
+    public void cluster(String path) {
         SparkConf conf=new SparkConf().setAppName("K-means test");
         JavaSparkContext sc=new JavaSparkContext(conf);
-        JavaRDD<String> data=sc.textFile("D:\\codeWorkspace\\RTT\\testWrite.dat");
+//        JavaRDD<String> data=sc.textFile("D:\\codeWorkspace\\RTT\\testWrite.dat");
+        JavaRDD<String> data=sc.textFile(path);
         JavaRDD<Vector> parsedData= (JavaRDD<Vector>) data.map(new Function<String, Vector>() {
             public Vector call(String s){
                 String[] array=s.split(" ");
@@ -22,17 +24,30 @@ public class kmeans {
             }
         });
         parsedData.cache();
+        //每次迭代20次
         int iter=20;
-        int k=5;
-        for (int i=1;i<k;i++) {
+        //选k=1-10，取效果最好的k
+        int candiK=10;
+        int k=0;
+        double minErr=Double.MAX_VALUE;
+        for (int i=1;i<=candiK;i++) {
             KMeansModel clusters = KMeans.train(parsedData.rdd(), i, iter);
-            double wssse = clusters.computeCost(parsedData.rdd());
-            System.out.println("se= " + wssse +" with k= "+i);
-            Vector[] vs = clusters.clusterCenters();
+            double err = clusters.computeCost(parsedData.rdd());
+            if (err<minErr){
+                minErr=err;
+                k=i;
+            }
+            System.out.println("se= " + err +" with k= "+i);
+//            Vector[] vs = clusters.clusterCenters();
 //        int clusidx=clus.predict(Vectors.dense())
-            for (Vector v : vs)
-                System.out.println("clus center=" + v);
+//            for (Vector v : vs)
+//                System.out.println("clus center=" + v);
         }
+        System.out.println("k="+k);
+        KMeansModel clusters=KMeans.train(parsedData.rdd(),k,iter);
+        Vector[] vs=clusters.clusterCenters();
+        for (Vector v : vs)
+            System.out.println("clus center=" + v);
         sc.close();
     }
 
