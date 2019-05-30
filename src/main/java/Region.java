@@ -39,8 +39,8 @@ public class Region{
 
             for (int cIndex = 0; cIndex < this.pLow.length; cIndex++)
             {
-                if (this.pLow[cIndex] < r.pLow[cIndex] - preProcess.EPSILON || this.pLow[cIndex] > r.pLow[cIndex] + preProcess.EPSILON ||
-                        this.pHigh[cIndex] < r.pHigh[cIndex] - preProcess.EPSILON || this.pHigh[cIndex] > r.pHigh[cIndex] + preProcess.EPSILON)
+                if (this.pLow[cIndex] < r.pLow[cIndex] -PreProcess.EPSILON || this.pLow[cIndex] > r.pLow[cIndex] + PreProcess.EPSILON ||
+                        this.pHigh[cIndex] < r.pHigh[cIndex] - PreProcess.EPSILON || this.pHigh[cIndex] > r.pHigh[cIndex] + PreProcess.EPSILON)
                     return false;
             }
             return true;
@@ -105,8 +105,8 @@ public class Region{
 
         for (int cIndex = 0; cIndex < this.pLow.length; cIndex++)
         {
-            if ((this.pLow[cIndex] > r.pLow[cIndex] - preProcess.EPSILON && this.pLow[cIndex] < r.pLow[cIndex] + preProcess.EPSILON) ||
-                    (this.pHigh[cIndex] > r.pHigh[cIndex] - preProcess.EPSILON && this.pHigh[cIndex] < r.pHigh[cIndex] + preProcess.EPSILON))
+            if ((this.pLow[cIndex] > r.pLow[cIndex] - PreProcess.EPSILON && this.pLow[cIndex] < r.pLow[cIndex] + PreProcess.EPSILON) ||
+                    (this.pHigh[cIndex] > r.pHigh[cIndex] - PreProcess.EPSILON && this.pHigh[cIndex] < r.pHigh[cIndex] + PreProcess.EPSILON))
                 return true;
         }
         return false;
@@ -149,8 +149,8 @@ public class Region{
 
         for (int cIndex = 0; cIndex < this.pLow.length; cIndex++)
         {
-            if ((this.pLow[cIndex] > p.pCoords[cIndex] - preProcess.EPSILON && this.pLow[cIndex] < p.pCoords[cIndex] + preProcess.EPSILON) ||
-                    (this.pHigh[cIndex] > p.pCoords[cIndex] - preProcess.EPSILON && this.pHigh[cIndex] < p.pCoords[cIndex] + preProcess.EPSILON))
+            if ((this.pLow[cIndex] > p.pCoords[cIndex] - PreProcess.EPSILON && this.pLow[cIndex] < p.pCoords[cIndex] + PreProcess.EPSILON) ||
+                    (this.pHigh[cIndex] > p.pCoords[cIndex] - PreProcess.EPSILON && this.pHigh[cIndex] < p.pCoords[cIndex] + PreProcess.EPSILON))
                 return true;
         }
         return false;

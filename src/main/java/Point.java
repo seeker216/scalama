@@ -34,8 +34,8 @@ public class Point implements Cloneable{
 
             for (int cIndex = 0; cIndex < this.pCoords.length; cIndex++)
             {
-                if (this.pCoords[cIndex] < pt.pCoords[cIndex] - preProcess.EPSILON ||
-                        this.pCoords[cIndex] > pt.pCoords[cIndex] + preProcess.EPSILON) return false;
+                if (this.pCoords[cIndex] < pt.pCoords[cIndex] - PreProcess.EPSILON ||
+                        this.pCoords[cIndex] > pt.pCoords[cIndex] + PreProcess.EPSILON) return false;
             }
             return true;
         }

@@ -39,7 +39,7 @@ public class Kmeans implements Serializable {
             }
             System.out.println("se= " + err +" with k= "+i);
 //            Vector[] vs = clusters.clusterCenters();
-//        int clusidx=clus.predict(Vectors.dense())
+//        int clusidx=clus.Predict(Vectors.dense())
 //            for (Vector v : vs)
 //                System.out.println("clus center=" + v);
         }
