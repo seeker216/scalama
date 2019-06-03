@@ -1,3 +1,7 @@
+package RTREE;
+
+import Engine.PreProcess;
+
 public class Region{
     public double[] pLow = null;
     public double[] pHigh = null;
@@ -5,7 +9,7 @@ public class Region{
     public Region(){}
     public Region(final double[] pLow, final double[] pHigh)
     {
-        if (pLow.length != pHigh.length) throw new IllegalArgumentException("Region: arguments have different number of dimensions.");
+        if (pLow.length != pHigh.length) throw new IllegalArgumentException("RTREE.Region: arguments have different number of dimensions.");
 
         this.pLow = new double[pLow.length];
         System.arraycopy(pLow, 0, this.pLow, 0, pLow.length);
@@ -15,7 +19,7 @@ public class Region{
     }
     public Region(final Point low, final Point high)
     {
-        if (low.pCoords.length != high.pCoords.length) throw new IllegalArgumentException("Region: arguments have different number of dimensions.");
+        if (low.pCoords.length != high.pCoords.length) throw new IllegalArgumentException("RTREE.Region: arguments have different number of dimensions.");
 
         this.pLow = new double[low.pCoords.length];
         System.arraycopy(low.pCoords, 0, this.pLow, 0, low.pCoords.length);
@@ -39,7 +43,7 @@ public class Region{
 
             for (int cIndex = 0; cIndex < this.pLow.length; cIndex++)
             {
-                if (this.pLow[cIndex] < r.pLow[cIndex] -PreProcess.EPSILON || this.pLow[cIndex] > r.pLow[cIndex] + PreProcess.EPSILON ||
+                if (this.pLow[cIndex] < r.pLow[cIndex] - PreProcess.EPSILON || this.pLow[cIndex] > r.pLow[cIndex] + PreProcess.EPSILON ||
                         this.pHigh[cIndex] < r.pHigh[cIndex] - PreProcess.EPSILON || this.pHigh[cIndex] > r.pHigh[cIndex] + PreProcess.EPSILON)
                     return false;
             }
@@ -200,6 +204,9 @@ public class Region{
     }
     public Region combinedRegion(final Region r)
     {
+        if (this.pLow==null)
+            return r;
+
         if (this.pLow.length != r.pLow.length) throw new IllegalArgumentException("combinedRegion: Shape has the wrong number of dimensions.");
 
         double[] mn = new double[this.pLow.length];

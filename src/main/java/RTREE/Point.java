@@ -1,3 +1,6 @@
+package RTREE;
+import Engine.PreProcess;
+
 public class Point implements Cloneable{
     public double[] pCoords=null;
     public byte[] pData=null;
@@ -22,6 +25,12 @@ public class Point implements Cloneable{
         this.pCoords=new double[2];
         this.pCoords[0]=x;
         this.pCoords[1]=y;
+    }
+    public Point(String[] param){
+        this.pCoords=new double[2];
+        this.pCoords[0]=Double.valueOf(param[0]);
+        this.pCoords[1]=Double.valueOf(param[1]);
+        this.pData=param[2].getBytes();
     }
 
     public boolean equals(Object o)

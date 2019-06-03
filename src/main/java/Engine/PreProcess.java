@@ -1,9 +1,14 @@
+package Engine;
+
+import RTREE.Point;
+import RTREE.Region;
+
 import java.io.*;
 import java.util.*;
 
 public class PreProcess {
     public static final double EPSILON = 1.192092896e-07;
-//    Region[] grids=new Region[16];
+//    RTREE.Region[] grids=new RTREE.Region[16];
     Summary[] summary=new Summary[16];
     double d=1000/4;
 //    List<Map.Entry<String,Integer>>[] summary=new List[16];
@@ -49,8 +54,8 @@ public class PreProcess {
     public int[] pointToRegion(Point p){
         int[] res =new int[3];
         res[0]=(int)(p.pCoords[0]/d);
-        res[1]=(int)(p.pCoords[1]/d)*4;
-        res[2]=res[0]+res[1];
+        res[1]=(int)(p.pCoords[1]/d);
+        res[2]=res[0]+res[1]*4;
         return res;
     }
 
@@ -60,7 +65,7 @@ public class PreProcess {
      */
     public void adjustSummary(Map<String,Integer>[] map){
         for (int i=0;i<map.length;i++){
-            summary[i]=new Summary();
+//            summary[i]=new Summary();
             summary[i].kwSummary=(HashMap<String, Integer>) map[i];
             summary[i].summaryList = new ArrayList<Map.Entry<String, Integer>>(map[i].entrySet());
             Collections.sort(summary[i].summaryList, new Comparator<Map.Entry<String, Integer>>() {
@@ -72,12 +77,5 @@ public class PreProcess {
         }
     }
 
-    public List sortMap(List list){
-        //降序排序
-        Collections.sort(list, (Comparator<Map.Entry<String, Integer>>) (o1, o2) -> {
-            //return o1.getValue().compareTo(o2.getValue());
-            return o2.getValue().compareTo(o1.getValue());
-        });
-        return list;
-    }
+
 }
